@@ -6,6 +6,7 @@ networks:
 services:
 
   backend:
+    restart: unless-stopped
     build:
       context: ./backend
       dockerfile: ./Dockerfile
@@ -20,6 +21,7 @@ services:
       - FRONTEND_URL=${FRONTEND_URL:-http://localhost:3000}
       - PROXY_PORT=${PROXY_PORT:-8080}
       - CHROME_ARGS=--no-sandbox --disable-setuid-sandbox
+      - CHROME_BIN=/usr/bin/google-chrome-stable
       - WHATSAPP_PROVIDER=${WHATSAPP_PROVIDER:-wwebjs}
       - WHATSAPP_CLOUD_API_VERSION=${WHATSAPP_CLOUD_API_VERSION:-}
       - WHATSAPP_CLOUD_PHONE_NUMBER_ID=${WHATSAPP_CLOUD_PHONE_NUMBER_ID:-}
@@ -37,6 +39,7 @@ services:
       - whaticket
 
   frontend:
+    restart: unless-stopped
     ports:
       - ${FRONTEND_PORT:-3000}:80
       - ${FRONTEND_SSL_PORT:-3001}:443

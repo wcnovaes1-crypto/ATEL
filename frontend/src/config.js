@@ -8,7 +8,7 @@ function getConfig(name, defaultValue = null) {
 }
 
 export function getBackendUrl() {
-  return getConfig("VITE_BACKEND_URL");
+  return getConfig("VITE_BACKEND_URL") || getConfig("REACT_APP_BACKEND_URL");
 }
 
 export function getHoursCloseTicketsAuto() {

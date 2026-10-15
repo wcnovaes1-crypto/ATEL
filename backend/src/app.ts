@@ -11,6 +11,7 @@ import uploadConfig from "./config/upload";
 import AppError from "./errors/AppError";
 import routes from "./routes";
 import { logger } from "./utils/logger";
+import cloudWebhookRoutes from "./routes/cloudWebhookRoutes";
 
 Sentry.init({ dsn: process.env.SENTRY_DSN });
 
@@ -23,6 +24,7 @@ app.use(
   })
 );
 app.use(cookieParser());
+app.use("/webhooks/whatsapp", express.raw({ type: "application/json", limit: "1mb" }), cloudWebhookRoutes);
 app.use(express.json());
 app.use(Sentry.Handlers.requestHandler());
 app.use("/public", express.static(uploadConfig.directory));

@@ -10,6 +10,7 @@
     "dev": "ts-node-dev --respawn --transpile-only --ignore node_modules src/server.ts",
     "pretest": "NODE_ENV=test sequelize db:migrate && NODE_ENV=test sequelize db:seed:all",
     "test": "NODE_ENV=test jest",
+    "test:cloud": "npm run build && jest --runInBand --config jest.cloud.config.js",
     "posttest": "NODE_ENV=test sequelize db:migrate:undo:all",
     "db:migrate": "npm run build && sequelize db:migrate",
     "db:seed": "sequelize db:seed:all",

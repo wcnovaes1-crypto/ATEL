@@ -218,7 +218,8 @@ export const handleMessage = async (
   messagePayload: MessagePayload,
   contactPayload: ContactPayload,
   contextPayload: WhatsappContextPayload,
-  mediaPayload?: MediaPayload
+  mediaPayload?: MediaPayload,
+  throwOnError = false
 ): Promise<void> => {
   try {
     const processedMessage = processLocationMessage(messagePayload);
@@ -308,6 +309,7 @@ export const handleMessage = async (
       );
     }
   } catch (err) {
+    if (throwOnError) throw err;
     Sentry.captureException(err);
     logger.error({
       info: "Error handling message",
